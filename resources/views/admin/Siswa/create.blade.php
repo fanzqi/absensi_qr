@@ -49,13 +49,17 @@
                         <input type="date" name="tanggal_lahir" id="tanggal_lahir" class="form-control"
                             value="{{ old('tanggal_lahir') }}" required>
                     </div>
-
                     <div class="form-group">
-                        <label for="kelas">Kelas</label>
-                        <input type="text" name="kelas" id="kelas" class="form-control" value="{{ old('kelas') }}"
-                            required>
+                        <label for="kelas_id">Kelas</label>
+                        <select name="kelas_id" id="kelas_id" class="form-control" required>
+                            <option value="">-- Pilih Kelas --</option>
+                            @foreach ($kelas as $k)
+                                <option value="{{ $k->id }}" {{ old('kelas_id') == $k->id ? 'selected' : '' }}>
+                                    {{ $k->nama_kelas }}
+                                </option>
+                            @endforeach
+                        </select>
                     </div>
-
                     <div class="form-group">
                         <label for="alamat">Alamat</label>
                         <textarea name="alamat" id="alamat" class="form-control" rows="3" required>{{ old('alamat') }}</textarea>

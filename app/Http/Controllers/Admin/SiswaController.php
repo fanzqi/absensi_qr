@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Siswa;
+use App\Models\Kelas;
+
 
 class SiswaController extends Controller
 {
@@ -21,10 +23,11 @@ class SiswaController extends Controller
      * Show the form for creating a new resource.
      */
     public function create()
-    {
-        return view('admin.siswa.create');
+{
+    $kelas = Kelas::all(); // ambil semua data kelas
 
-    }
+    return view('admin.Siswa.create', compact('kelas'));
+}
 
     /**
      * Store a newly created resource in storage.
@@ -49,6 +52,7 @@ class SiswaController extends Controller
             'tempat' => $request->tempat,
             'tanggal_lahir' => $request->tanggal_lahir,
             'kelas' => $request->kelas,
+
         ]);
 
         return redirect()->route('admin.siswa')->with('success', 'Data siswa berhasil ditambahkan');
