@@ -46,13 +46,14 @@
                                             class="btn btn-info btn-sm">Detail</a>
                                         <a href="{{ route('admin.siswa.edit', $siswa->id) }}"
                                             class="btn btn-warning btn-sm">Edit</a>
-                                        <form action="{{ route('admin.siswa.destroy', $siswa->id) }}" method="POST"
-                                            style="display:inline;">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button class="btn btn-danger btn-sm"
-                                                onclick="return confirm('Yakin hapus?')">Hapus</button>
-                                        </form>
+                                        <button type="button"
+        class="btn btn-danger btn-sm"
+        data-toggle="modal"
+        data-target="#deleteModal{{ $siswa->id }}">
+
+    Hapus
+
+</button>
                                     </td>
                                 </tr>
                             @endforeach
@@ -63,3 +64,55 @@
         </div>
     </div>
 @endsection
+<div class="modal fade"
+     id="deleteModal{{ $siswa->id }}"
+     tabindex="-1"
+     role="dialog"
+     aria-labelledby="deleteModalLabel{{ $siswa->id }}"
+     aria-hidden="true">
+
+    <div class="modal-dialog" role="document">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h5 class="modal-title" id="deleteModalLabel{{ $siswa->id }}">
+                    Konfirmasi Hapus
+                </h5>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+
+            </div>
+
+            <div class="modal-body">
+                Yakin ingin menghapus data siswa<b> {{ $siswa->nama }}</b>?
+            </div>
+
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    Batal
+                </button>
+
+                <form action="{{ route('admin.siswa.destroy', $siswa->id) }}"
+                      method="POST">
+
+                    @csrf
+                    @method('DELETE')
+
+                    <button type="submit" class="btn btn-danger">
+                        Hapus
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
